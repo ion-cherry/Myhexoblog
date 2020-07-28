@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -19,7 +19,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"./public/search.xml"};
   </script>
 
   <meta name="description" content="陪你长大 ion离子">
@@ -28,8 +28,9 @@
 <meta property="og:url" content="http://yoursite.com/archives/2020/07/index.html">
 <meta property="og:site_name" content="Ion Cherry">
 <meta property="og:description" content="陪你长大 ion离子">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="ion cherry">
+<meta property="article:tag" content="向钱看">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/archives/2020/07/">
@@ -41,11 +42,11 @@
     sidebar: "",
     isHome : false,
     isPost : false,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
-  <title>Archive | Ion Cherry</title>
+  <title>归档 | Ion Cherry</title>
   
 
 
@@ -88,6 +89,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/rss2.xml" title="Ion Cherry" type="application/rss+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -98,7 +100,7 @@
       <header class="header" itemscope itemtype="http://schema.org/WPHeader">
         <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
         <span class="toggle-line toggle-line-first"></span>
         <span class="toggle-line toggle-line-middle"></span>
         <span class="toggle-line toggle-line-last"></span>
@@ -112,10 +114,12 @@
       <h1 class="site-title">Ion Cherry</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">樱离子</p>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -126,17 +130,17 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-music">
@@ -144,11 +148,38 @@
     <a href="/music/" rel="section"><i class="fa fa-music fa-fw"></i>music</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
           
@@ -164,10 +195,10 @@
     <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
@@ -187,9 +218,20 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">1</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -200,9 +242,28 @@
       <span class="links-of-author-item">
         <a href="mailto:yinglizi788@gmail.com" title="E-Mail → mailto:yinglizi788@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/ion-cherry" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;ion-cherry" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://dwz.win/H4J" title="WeChat → http:&#x2F;&#x2F;dwz.win&#x2F;H4J" rel="noopener" target="_blank"><i class="fab  fa-weixin fa-fw"></i>WeChat</a>
+      </span>
   </div>
 
 
+  <div class="links-of-blogroll animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://diygod.me/" title="https:&#x2F;&#x2F;diygod.me&#x2F;" rel="noopener" target="_blank">DIYgod</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.fghrsh.net/friends.html" title="https:&#x2F;&#x2F;www.fghrsh.net&#x2F;friends.html" rel="noopener" target="_blank">FGHRSH</a>
+        </li>
+    </ul>
+  </div>
 
       </section>
     </div>
@@ -235,13 +296,33 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <span class="collection-header">Um..! 1 post. Keep on posting.</span>
+        <span class="collection-header">嗯..! 目前共计 2 篇日志。 继续努力。</span>
       </div>
 
       
     <div class="collection-year">
       <span class="collection-header">2020</span>
     </div>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2020-07-27T08:06:37+08:00"
+              content="2020-07-27">
+          07-27
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/07/27/frontMap/" itemprop="url">
+            <span itemprop="name">frontMap</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
 
   <article itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
@@ -256,7 +337,7 @@
 
       <div class="post-title">
           <a class="post-title-link" href="/2020/07/22/hello-world/" itemprop="url">
-            <span itemprop="name">Hello World</span>
+            <span itemprop="name">hexo生成博客</span>
           </a>
       </div>
 
@@ -307,6 +388,10 @@
         
 
         
+<div id="canvas-clock" style="width: 200px;  position: absolute; ">
+  <canvas id="canvas" style="width:100%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+  <script src="/live2d-widget/canvasTime.js"></script>
+</div>
 
 <div class="copyright">
   
@@ -316,11 +401,88 @@
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">ion cherry</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">0k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1 分钟</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
-  </div>
+
+
+<div class="time-check">
+<span id="sitetime" style="color:#fff93e; font-weight:800"></span>
+<i class="ywz" >ÒܫÓױ♥‿♥</i>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* 
+		Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数
+        */
+		var t1 = Date.UTC(2020,07,23,15,00,00); //北京时间2020-7-23 00:00:00
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行 "+ (diffYears <10 ? '0' + diffYears : diffYears)+" 年 "+(diffDays < 10 ? '0' + diffDays : diffDays)+" 天 "+(diffHours < 10 ? '0' + diffHours : diffHours)+" 小时 "+(diffMinutes < 10 ? '0' + diffMinutes : diffMinutes)+" 分钟 "+(diffSeconds < 10 ? '0' + diffSeconds : diffSeconds )+" 秒";
+	}
+	siteTime();
+</script>
+</div>
+  
+  <div class="busuanzi-count">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    
+</div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -345,8 +507,21 @@
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -364,13 +539,31 @@
 
   
 
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ion-cherry.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
 
   
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+      <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
 
+  
+      <script src="/live2d-widget/autoload.js"></script>
+  
 
-
-    <script src="/live2d-widget/autoload.js"></script>
+    
+      <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+      <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+      <script  src="/fireworks/fireworks.js"></script>
+    
 
 <script src="/live2D-modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2D-modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2D-modules/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 </html>

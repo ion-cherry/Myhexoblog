@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://yoursite.com/2020/07/22/hello-world/</loc>
+    
+    <lastmod>2020-07-27T06:37:03.073Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/07/27/frontMap/</loc>
+    
+    <lastmod>2020-07-27T00:38:49.342Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2020-07-26T15:40:11.209Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
+    
+    <lastmod>2020-07-26T15:34:46.193Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/index.html</loc>
+    
+    <lastmod>2020-07-26T15:23:50.367Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/ZONE/home.html</loc>
+    
+    <lastmod>2020-07-25T08:18:27.116Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/music/index.html</loc>
+    
+    <lastmod>2020-07-25T06:44:13.641Z</lastmod>
+    
+  </url>
+  
+</urlset>
