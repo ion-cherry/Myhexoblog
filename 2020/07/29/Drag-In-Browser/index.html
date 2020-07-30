@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-mac-osx.min.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="原生JavaScript拖拽，移动端也可用 我究竟忘了多少东西">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Drag In Browser">
+<meta property="og:url" content="http://yoursite.com/2020/07/29/Drag-In-Browser/index.html">
+<meta property="og:site_name" content="Ion Cherry">
+<meta property="og:description" content="原生JavaScript拖拽，移动端也可用 我究竟忘了多少东西">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-29T10:10:51.000Z">
+<meta property="article:modified_time" content="2020-07-29T10:48:15.140Z">
+<meta property="article:author" content="ion cherry">
+<meta property="article:tag" content="向钱看">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/29/Drag-In-Browser/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Drag In Browser | Ion Cherry</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="Ion Cherry" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Ion Cherry</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">樱离子</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-music">
+
+    <a href="/music/" rel="section"><i class="fa fa-music fa-fw"></i>music</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原生JavaScript拖拽，移动端也可用"><span class="nav-number">1.</span> <span class="nav-text">原生JavaScript拖拽，移动端也可用</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ion cherry"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">ion cherry</p>
+  <div class="site-description" itemprop="description">陪你长大 ion离子</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ion-cherry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ion-cherry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yinglizi788@gmail.com" title="E-Mail → mailto:yinglizi788@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/ion-cherry" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;ion-cherry" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://dwz.win/H4J" title="WeChat → http:&#x2F;&#x2F;dwz.win&#x2F;H4J" rel="noopener" target="_blank"><i class="fab  fa-weixin fa-fw"></i>WeChat</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://diygod.me/" title="https:&#x2F;&#x2F;diygod.me&#x2F;" rel="noopener" target="_blank">DIYgod</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.fghrsh.net/friends.html" title="https:&#x2F;&#x2F;www.fghrsh.net&#x2F;friends.html" rel="noopener" target="_blank">FGHRSH</a>
+        </li>
+    </ul>
+  </div>
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/29/Drag-In-Browser/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="ion cherry">
+      <meta itemprop="description" content="陪你长大 ion离子">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ion Cherry">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Drag In Browser
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-29 18:10:51 / 修改时间：18:48:15" itemprop="dateCreated datePublished" datetime="2020-07-29T18:10:51+08:00">2020-07-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">-web前端</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/07/29/Drag-In-Browser/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/07/29/Drag-In-Browser/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="原生JavaScript拖拽，移动端也可用"><a href="#原生JavaScript拖拽，移动端也可用" class="headerlink" title="原生JavaScript拖拽，移动端也可用"></a><center>原生JavaScript拖拽，移动端也可用</center></h1><ul>
+<li>我究竟忘了多少东西<a id="more"></a></li>
+</ul>
+<ol>
+<li><blockquote>
+<p>一个html文件直接运行😁 </p>
+</blockquote>
+<details>
+ <summary>原生drag&&touch</summary>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, user-scalable=no"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>touch_drag<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">        html &#123;</span><br><span class="line">            font-size: calc(100vw / 7.5);</span><br><span class="line">            /* font-size: 50px; </span><br><span class="line">			 设计稿的px/100 */</span><br><span class="line">            height: 100%;</span><br><span class="line">            min-width: 320px;</span><br><span class="line">            overflow-x: hidden;</span><br><span class="line">			</span><br><span class="line">        &#125;</span><br><span class="line">        body &#123;</span><br><span class="line">            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;</span><br><span class="line"><span class="css">            <span class="selector-tag">font-size</span>: <span class="selector-class">.28em</span>;</span></span><br><span class="line">            line-height: 1;</span><br><span class="line">            margin: 0</span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-class">.contaienr</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">width</span><span class="selector-pseudo">:100</span>%;</span></span><br><span class="line">            height: 100%;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line">            width: 1rem;</span><br><span class="line">            height: 1rem;</span><br><span class="line">            background: purple;</span><br><span class="line">            border-radius: 50%;</span><br><span class="line">            position: absolute;</span><br><span class="line">            top: 0;</span><br><span class="line">            left: 0;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line">                </span><br><span class="line">            </span><br><span class="line"><span class="javascript">            <span class="keyword">const</span> box = <span class="built_in">document</span>.querySelector(<span class="string">'.box'</span>)</span></span><br><span class="line">            </span><br><span class="line"><span class="actionscript">            <span class="function"><span class="keyword">function</span> <span class="title">dragEle</span><span class="params">(ele)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">                ele.onmousedown = <span class="function"><span class="keyword">function</span><span class="params">(evt)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> e = evt || <span class="built_in">window</span>.event</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> disX = e.clientX - ele.offsetLeft</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> disY = e.clientY - ele.offsetTop</span></span><br><span class="line">                    </span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.onmousemove = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> e = evt || <span class="built_in">window</span>.event</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> left = e.clientX - disX</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> top = e.clientY - disY</span></span><br><span class="line">                        </span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> leftMax = <span class="built_in">window</span>.innerWidth - ele.offsetWidth</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> topMax = <span class="built_in">window</span>.innerHeight - ele.offsetHeight</span></span><br><span class="line"></span><br><span class="line">                        if(left &lt;= 0) &#123;</span><br><span class="line">                            left = 0</span><br><span class="line"><span class="actionscript">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(left &gt;= leftMax) &#123;</span></span><br><span class="line">                            left = leftMax</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        if(top &lt;= 0) &#123;</span><br><span class="line">                            top = 0</span><br><span class="line"><span class="actionscript">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(top &gt;= topMax) &#123;</span></span><br><span class="line">                            top = topMax</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">                        ele.style.left = left + <span class="string">'px'</span></span></span><br><span class="line"><span class="actionscript">                        ele.style.top = top + <span class="string">'px'</span></span></span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">                        <span class="keyword">this</span>.onmousemove = <span class="literal">null</span></span></span><br><span class="line"><span class="actionscript">                        <span class="keyword">this</span>.onmouseup = <span class="literal">null</span></span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line"><span class="actionscript">            <span class="function"><span class="keyword">function</span> <span class="title">touchEle</span><span class="params">(ele)</span> </span>&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">                ele.ontouchstart = <span class="function"><span class="keyword">function</span><span class="params">(evt)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> e = evt || <span class="built_in">window</span>.event</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> touchX = e.changedTouches[<span class="number">0</span>].clientX - ele.offsetLeft</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> touchY = e.changedTouches[<span class="number">0</span>].clientY - ele.offsetTop</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.ontouchmove = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> e = evt || <span class="built_in">window</span>.event</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> left = e.changedTouches[<span class="number">0</span>].clientX - touchX</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> top = e.changedTouches[<span class="number">0</span>].clientY - touchY</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> leftMax = <span class="built_in">window</span>.innerWidth - ele.offsetWidth</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">let</span> topMax = <span class="built_in">window</span>.innerHeight - ele.offsetHeight</span></span><br><span class="line"></span><br><span class="line">                        if(left &lt;= 0) &#123;</span><br><span class="line">                            left = 0</span><br><span class="line"><span class="actionscript">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(left &gt;= leftMax) &#123;</span></span><br><span class="line">                            left = leftMax</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        if(top &lt;= 0) &#123;</span><br><span class="line">                            top = 0</span><br><span class="line"><span class="actionscript">                        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(top &gt;= topMax) &#123;</span></span><br><span class="line">                            top = topMax</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">                        ele.style.left = left + <span class="string">'px'</span></span></span><br><span class="line"><span class="actionscript">                        ele.style.top = top + <span class="string">'px'</span></span></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.ontouchend = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">                    <span class="keyword">this</span>.ontouchmove = <span class="literal">null</span></span></span><br><span class="line"><span class="actionscript">                        <span class="keyword">this</span>.ontouchend = <span class="literal">null</span></span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        </span><br><span class="line"><span class="actionscript">            <span class="keyword">const</span> a = navigator.userAgent</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(a, navigator)</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">if</span>(a.indexOf(<span class="string">"Android"</span>) != <span class="number">-1</span> || a.indexOf(<span class="string">"iPhone"</span>) != <span class="number">-1</span> || a.indexOf(<span class="string">"iPad"</span>) != <span class="number">-1</span>) &#123;</span></span><br><span class="line">                touchEle(box)</span><br><span class="line">                </span><br><span class="line"><span class="actionscript">            &#125;<span class="keyword">else</span> &#123;</span></span><br><span class="line">                dragEle(box)</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</details>
+</li>
+<li><blockquote>
+<p>要怎么封装呢，还在考虑中🤔</p>
+</blockquote>
+</li>
+<li><p>代码解析</p>
+<blockquote>
+<p>Css布局参考这里  <a href="https://www.cnblogs.com/olive27/p/6593126.html" target="_blank" rel="noopener">rem布局</a></p>
+</blockquote>
+<pre><code>html{
+　　font-size:calc(100vw/7.5);
+}
+
+这是按照750的设计稿（也就是iphone6的设计稿）。
+
+100vw是设备的宽度，除以7.5可以让1rem的大小在iPhone6下等于50px。
+
+替换页面中的单位，把所有的px单位替换成rem，除以100，比如某字体大小在设计稿上是36px，就是0.36rem。
+
+在iPhone6下，所有元素的尺寸还是和视觉稿的尺寸一样，而iphone5/iphone6plus中，因为设备的宽度变小/变大了，100vw/7.5得到的值，会相应的变小、变大，即rem的单位值会变，页面中所有的尺寸会等比例缩放。
+
+so,这样就做到l了针对不同分辨率的设备保持视觉一致了。</code></pre></li>
+</ol>
+
+      <script>
+        window.disqusProxy={
+          shortname: 'ciqu',
+          username: 'ciqu',
+          server: 'disqus-proxy.ycwalker.com',
+          port: 443,
+          adminAvatar: '/avatars/admin-avatar.jpg',
+          identifier: '2020/07/29/Drag-In-Browser/',
+        };
+        window.disqus_config = function () {
+          this.page.url = window.location.href;
+          this.page.identifier = window.disqusProxy.identifier;
+        };
+      </script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/27/frontMap/" rel="prev" title="frontMap">
+      <i class="fa fa-chevron-left"></i> frontMap
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+    
+  <div class="comments">
+    
+      <script src="//cdn.bootcss.com/react/16.0.0/umd/react.production.min.js"></script>
+      <script src="//cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
+      <script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/blockies-identicon@0.1.0/blockies.min.js"></script>
+      <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+      <div id="disqus_proxy_thread"><script src="/scripts/hexo-disqus-proxy-primary.js" async></script>
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<div id="canvas-clock" style="width: 200px;  position: absolute; ">
+  <canvas id="canvas" style="width:100%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+  <script src="/live2d-widget/canvasTime.js"></script>
+</div>
+
+
+<div class="back-to-down go-top" >
+      <style>
+      
+        .go-top {
+			background: url(/uploads/scroll.png) no-repeat;
+			width: 70px;
+			height: 900px;
+			position: fixed;
+			top: -900px;
+			left: 10px;
+      z-index: 999
+		}
+
+		.back-to-down {
+			transition: top .5s ease;
+			animation: float .5s ease-in-out infinite
+		}
+
+
+		@keyframes float {
+			0% {
+				transform: tranlateY(0)
+			}
+
+			50% {
+				transform: translateY(-6px)
+			}
+
+			100% {
+				transform: translate(0)
+			}
+		}
+      
+      </style>
+      <script>
+        const oTop = document.querySelector('.go-top')
+			onscroll = function() {
+
+				if (document.documentElement.scrollTop > 10) {
+					oTop.style.top = -300 + 'px';
+				} else {
+					oTop.style.top = -900 + 'px'
+				}
+			}
+			
+		
+			function tutu() {
+					
+					var timer = setInterval( function() {
+						var  scrollNum = document.documentElement.scrollTop
+						var  speed = Math.floor(-scrollNum / 6)
+						document.documentElement.scrollTop = scrollNum + speed
+						if (scrollNum <= 0) {
+							clearInterval(timer)
+						}
+
+					}, 30)
+
+				}
+			
+			oTop.addEventListener('click', tutu, false)
+      </script>
+</div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ion cherry</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">4k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3 分钟</span>
+</div>
+
+
+<div class="time-check">
+<span id="sitetime" style="color:#fff93e; font-weight:800"></span>
+<i class="ywz" >ÒܫÓױ♥‿♥</i>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* 
+		Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数
+        */
+		var t1 = Date.UTC(2020,07,23,15,00,00); //北京时间2020-7-23 00:00:00
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行 "+ (diffYears <10 ? '0' + diffYears : diffYears)+" 年 "+(diffDays < 10 ? '0' + diffDays : diffDays)+" 天 "+(diffHours < 10 ? '0' + diffHours : diffHours)+" 小时 "+(diffMinutes < 10 ? '0' + diffMinutes : diffMinutes)+" 分钟 "+(diffSeconds < 10 ? '0' + diffSeconds : diffSeconds )+" 秒";
+	}
+	siteTime();
+</script>
+</div>
+  
+  <div class="busuanzi-count">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ion-cherry.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2020/07/29/Drag-In-Browser/";
+    this.page.identifier = "2020/07/29/Drag-In-Browser/";
+    this.page.title = "Drag In Browser";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://ion-cherry.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+
+  
+      <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+      <script src="/live2d-widget/autoload.js"></script>
+  
+
+    
+      <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+      <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+      <script  src="/fireworks/fireworks.js"></script>
+    
+
+<script src="/live2D-modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2D-modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2D-modules/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
