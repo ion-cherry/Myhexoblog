@@ -226,7 +226,7 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -451,34 +451,7 @@
 		}
       
       </style>
-      <script>
-        const oTop = document.querySelector('.go-top')
-			onscroll = function() {
-
-				if (document.documentElement.scrollTop > 10) {
-					oTop.style.top = -300 + 'px';
-				} else {
-					oTop.style.top = -900 + 'px'
-				}
-			}
-			
-		
-			function tutu() {
-					
-					var timer = setInterval( function() {
-						var  scrollNum = document.documentElement.scrollTop
-						var  speed = Math.floor(-scrollNum / 6)
-						document.documentElement.scrollTop = scrollNum + speed
-						if (scrollNum <= 0) {
-							clearInterval(timer)
-						}
-
-					}, 30)
-
-				}
-			
-			oTop.addEventListener('click', tutu, false)
-      </script>
+    <script src="/js/back-to-top.js"></script>
 </div>
 
 <div class="copyright">
@@ -489,16 +462,6 @@
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">ion cherry</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="站点总字数">4k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="站点阅读时长">3 分钟</span>
 </div>
 
 
@@ -627,16 +590,6 @@
 
   
 
-<script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://ion-cherry.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
 
 
   
@@ -653,5 +606,5 @@
       <script  src="/fireworks/fireworks.js"></script>
     
 
-<script src="/live2D-modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2D-modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2D-modules/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</body>
 </html>

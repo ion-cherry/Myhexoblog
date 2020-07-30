@@ -232,7 +232,7 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -323,7 +323,7 @@
       <div class="post-body">
           <p><font color=#0c74d6 size=3 face="华文行楷">Aplayer播放器</font></p>
 
-    <div id="aplayer-PflOsjJi" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-bvvrQEaq" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="697054881" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div>
 
@@ -357,15 +357,7 @@
         
     
   <div class="comments">
-    
-      <script src="//cdn.bootcss.com/react/16.0.0/umd/react.production.min.js"></script>
-      <script src="//cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
-      <script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
-      <script src="//cdn.jsdelivr.net/npm/blockies-identicon@0.1.0/blockies.min.js"></script>
-      <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-      <div id="disqus_proxy_thread"><script src="/scripts/hexo-disqus-proxy-primary.js" async></script>
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MTE3Ni8yNzY1Nw=="></div>
   </div>
   
 
@@ -439,34 +431,7 @@
 		}
       
       </style>
-      <script>
-        const oTop = document.querySelector('.go-top')
-			onscroll = function() {
-
-				if (document.documentElement.scrollTop > 10) {
-					oTop.style.top = -300 + 'px';
-				} else {
-					oTop.style.top = -900 + 'px'
-				}
-			}
-			
-		
-			function tutu() {
-					
-					var timer = setInterval( function() {
-						var  scrollNum = document.documentElement.scrollTop
-						var  speed = Math.floor(-scrollNum / 6)
-						document.documentElement.scrollTop = scrollNum + speed
-						if (scrollNum <= 0) {
-							clearInterval(timer)
-						}
-
-					}, 30)
-
-				}
-			
-			oTop.addEventListener('click', tutu, false)
-      </script>
+    <script src="/js/back-to-top.js"></script>
 </div>
 
 <div class="copyright">
@@ -477,16 +442,6 @@
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">ion cherry</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="站点总字数">4k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="站点阅读时长">3 分钟</span>
 </div>
 
 
@@ -616,34 +571,19 @@
   
 
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://ion-cherry.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
-<script>
-  var disqus_config = function() {
-    this.page.url = "http://yoursite.com/music/index.html";
-    this.page.identifier = "music/index.html";
-    this.page.title = "歌单来自网易云";
-    };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: disqus_config
-      });
-    } else {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://ion-cherry.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', '' + +new Date());
-      (d.head || d.body).appendChild(s);
-    }
-  });
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
 </script>
 
 
@@ -661,5 +601,5 @@
       <script  src="/fireworks/fireworks.js"></script>
     
 
-<script src="/live2D-modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2D-modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2D-modules/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</body>
 </html>
